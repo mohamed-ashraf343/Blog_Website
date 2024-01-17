@@ -17,11 +17,20 @@
     <div class="container-fluid">
 
         <div class="animated fadeIn">
-            <form method="post" action="{{ Route('dashbord.settings.update') }}"  enctype="multipart/form-data">
+            <form method="post" action="{{ Route('dashbord.settings.update', $setting) }}" enctype="multipart/form-data">
                 @csrf
                 {{-- @method('PUT') --}}
 
                 <div class="row">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
                     {{-- <div class="alert alert-danger">
                         <ul>
@@ -36,11 +45,11 @@
 
                             <div class="form-group col-md-6">
                                 <label>{{ __('words.logo') }}</label>
-                                <img src="" alt="" style="height: 50px">
+                                <img src="{{ asset($setting->logo) }}" alt="" style="height: 50px">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>{{ __('words.favicon') }}</label>
-                                <img src="" alt="" style="height: 50px">
+                                <img src="{{ asset($setting->favicon) }}" alt="" style="height: 50px">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>{{ __('words.logo') }}</label>
@@ -54,22 +63,22 @@
                             <div class="form-group col-md-6">
                                 <label>{{ __('words.facebook') }}</label>
                                 <input type="text" name="facebook" class="form-control"
-                                    placeholder="{{ __('words.facebook') }}" value="">
+                                    placeholder="{{ __('words.facebook') }}" value="{{ $setting->facebook }}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>{{ __('words.instagram') }}</label>
                                 <input type="text" name="instagram" class="form-control"
-                                    placeholder="{{ __('words.instagram') }}" value="">
+                                    placeholder="{{ __('words.instagram') }}" value="{{ $setting->instagram }}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>{{ __('words.phone') }}</label>
                                 <input type="text" name="phone" class="form-control"
-                                    placeholder="{{ __('words.phone') }}" value="">
+                                    placeholder="{{ __('words.phone') }}" value="{{ $setting->phone }}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>{{ __('words.email') }}</label>
                                 <input type="text" name="email" class="form-control"
-                                    placeholder="{{ __('words.email') }}" value="">
+                                    placeholder="{{ __('words.email') }}" value="{{ $setting->email }}">
                             </div>
 
                         </div>
@@ -99,19 +108,22 @@
                                             <br>
                                             <div class="form-group mt-3 col-md-12">
                                                 <label>{{ __('words.email') }} - {{ $lang }}</label>
-                                                <input type="text" name="{{$key}}[title]" class="form-control"
-                                                    placeholder="{{ __('words.email') }}"   value="">
+                                                <input type="text" name="{{ $key }}[title]"
+                                                    class="form-control" placeholder="{{ __('words.email') }}"
+                                                    value="{{ $setting->translate($key)->title }}">
                                             </div>
 
                                             <div class="form-group col-md-12">
                                                 <label>{{ __('words.content') }}</label>
-                                                <textarea name="{{$key}}[content]" class="form-control" cols="30" rows="10"></textarea>
+                                                <textarea name="{{ $key }}[content]" class="form-control" cols="30" rows="10">{{$setting->translate($key)->content }}</textarea>
+
                                             </div>
 
 
                                             <div class="form-group col-md-12">
                                                 <label>{{ __('words.address') }}</label>
-                                                <input type="text"name="{{$key}}[address]" class="form-control"   value="">
+                                                <input type="text"name="{{ $key }}[address]"
+                                                    class="form-control" value="{{ $setting->translate($key)->address }}">
                                             </div>
                                         </div>
                                     @endforeach

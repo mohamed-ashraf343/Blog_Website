@@ -19,8 +19,7 @@
 </ol>
 
 <div class="container-fluid">
-
-    <div class="animated fadeIn">
+     <div class="animated fadeIn">
         <div class="row">
             <div class="col-sm-6 col-lg-3">
                 <div class="card card-inverse card-primary">

@@ -76,7 +76,15 @@
                          <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> تنظیمات</a>
                          <!--<a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="tag tag-default">42</span></a>-->
                          <div class="divider"></div>
-                         <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> خروج</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();"><i class="fa fa-lock"></i>
+                                {{ __('words.Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                      </div>
                  </li>
                  <li class="nav-item">

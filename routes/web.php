@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Dashbord\SettingController;
+use App\Http\Controllers\Dashbord\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,11 +20,26 @@ Route::get('/', function () {
     return view('dashbord.index');
 });
 
-Route::prefix('dashbord')->group(function () {
+
+Route::group(['prefix' => 'dashbord', 'as' => 'dashbord.', 'middleware' => ['auth', 'checklogin']], function () {
+    Route::get('/', function () {
+        return view('dashbord.layouts.layout');
+    })->name('settings');
+
     Route::get('/settings', function () {
-      return view('dashbord.settings');
-        // Matches The "/admin/users" URL
-    })->name('dashbord.settings');
-    Route::post('/settings/update',[SettingController::class, 'update'])->name('dashbord.settings.update');
+        return view('dashbord.settings');
+    })->name('settings');
+
+    Route::post('/settings/update/{setting}',[SettingController::class, 'update'])->name('settings.update');
+
+    Route::resources([
+        'users' => UserController::class,
+    ]);
 });
 
+
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
