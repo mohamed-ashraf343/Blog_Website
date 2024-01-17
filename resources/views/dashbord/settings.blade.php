@@ -137,9 +137,9 @@
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>
-                                    Submit</button>
+                                    {{__('words.submit')}}</button>
                                 <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>
-                                    Reset</button>
+                                    {{__('words.reset')}}</button>
                             </div>
 
                         </div>

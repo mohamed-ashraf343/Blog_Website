@@ -12,7 +12,8 @@ class SettingController extends Controller
 {
 
     public function update(Request $request , Setting $setting) {
-        // dd($request->all());
+        // dd($request);
+        
         $data = [
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'favicon' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',

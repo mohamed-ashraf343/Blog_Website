@@ -6,19 +6,19 @@
             </li>
 
             <li class="nav-title">
-               مدیریت کاربران
+                {{__('words.manger.mangement')}}
             </li>
              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-user-follow"></i> ثبت کاربر</a>
-                <a class="nav-link" href="#"><i class="icon-people"></i> لیست کاربران</a>
-                <a class="nav-link" href="#"><i class="icon-user-following"></i> دسترسی کاربران</a>
+                <a class="nav-link" href="#"><i class="icon-user-follow"></i>  {{__('words.log.users')}}    </a>
+                <a class="nav-link" href="#"><i class="icon-people"></i> {{__('words.item.user')}}   </a>
+                <a class="nav-link" href="#"><i class="icon-user-following"></i> {{__('words.login.user')}}  </a>
             </li>
 
             <li class="nav-title">
-               مدیریت فایل ها
+                {{__('words.mangement.files')}}
             </li>
              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-docs"></i> لیست فایل ها</a>
+                <a class="nav-link" href="#"><i class="icon-docs"></i>{{__('words.icon.file')}}</a>
             </li>
 
             <li class="nav-title">

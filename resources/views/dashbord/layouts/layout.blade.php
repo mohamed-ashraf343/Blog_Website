@@ -16,11 +16,16 @@
      <meta name="author" content="Lukasz Holeczek">
      <meta name="keyword" content="CoreUI Bootstrap 4 Admin Template">
      <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
-     <title>CoreUI Bootstrap 4 Admin Template</title>
+     <title>{{__('words.welcom.dashbord')}}</title>
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500&family=Marhey:wght@300..700&family=Noto+Sans+Arabic:wght@200;400;500;800;900&display=swap" rel="stylesheet">
      <!-- Icons -->
      <link href="{{asset('adminassets/css/font-awesome.min.css')}}" rel="stylesheet">
      <link href="{{asset('adminassets/css/simple-line-icons.css')}}" rel="stylesheet">
      <!-- Main styles for this application -->
+     <link href="{{asset('adminassets/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+
      <link href="{{asset('adminassets/dest/style.css')}}" rel="stylesheet">
  </head>
  <!-- BODY options, add following classes to body to change options
@@ -66,14 +71,14 @@
                  <li class="nav-item dropdown">
                      <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                          <img src="{{asset('adminassets/img/avatars/6.jpg')}}" class="img-avatar" alt="admin@bootstrapmaster.com">
-                         <span class="hidden-md-down">مدیر</span>
+                         <span class="hidden-md-down">{{ __('words.manger') }}</span>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
                          <div class="dropdown-header text-xs-center">
-                             <strong>تنظیمات</strong>
+                             <strong>{{__('words.settings')}}</strong>
                          </div>
-                         <a class="dropdown-item" href="#"><i class="fa fa-user"></i> پروفایل</a>
-                         <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> تنظیمات</a>
+                         <a class="dropdown-item" href="#"><i class="fa fa-user"></i> {{ __('words.profile') }}</a>
+                         <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> {{ __('words.settings') }}</a>
                          <!--<a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="tag tag-default">42</span></a>-->
                          <div class="divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
@@ -379,6 +384,9 @@
          </span>
      </footer>
      <!-- Bootstrap and necessary plugins -->
+
+
+
      <script src="{{asset('adminassets/js/libs/jquery.min.js')}}"></script>
      <script src="{{asset('adminassets/js/libs/tether.min.js')}}"></script>
      <script src="{{asset('adminassets/js/libs/bootstrap.min.js')}}"></script>
@@ -397,6 +405,22 @@
 
      <!-- Grunt watch plugin -->
      <script src="//localhost:35729/livereload.js"></script>
+
+     {{-- data table  --}}
+     <script src="{{asset('adminassets/js/libs/jquery.dataTables.min.js')}}"></script>
+     <script src="{{asset('adminassets/js/libs/dataTables.bootstrap4.min.js')}}"></script>
+     
+     {{-- <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+     <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap4.min.js"></script> --}}
+
+
+     <script>
+        $(document).ready(function(){
+            $('#table_id').DataTable({
+                processing: true
+            });
+        });
+     </script>
  </body>
 
  </html>

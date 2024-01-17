@@ -30,6 +30,11 @@ Route::group(['prefix' => 'dashbord', 'as' => 'dashbord.', 'middleware' => ['aut
         return view('dashbord.settings');
     })->name('settings');
 
+
+    Route::get('/users', function () {
+        return view('dashbord.users');
+    })->name('users');
+
     Route::post('/settings/update/{setting}',[SettingController::class, 'update'])->name('settings.update');
 
     Route::resources([
