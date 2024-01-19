@@ -9,9 +9,9 @@
                 {{__('words.manger.mangement')}}
             </li>
              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="icon-user-follow"></i>  {{__('words.log.users')}}    </a>
-                <a class="nav-link" href="#"><i class="icon-people"></i> {{__('words.item.user')}}   </a>
-                <a class="nav-link" href="#"><i class="icon-user-following"></i> {{__('words.login.user')}}  </a>
+                <a class="nav-link" href="{{route('dashbord.users.index')}}"><i class="icon-people"></i> {{__('words.item.user')}}   </a>
+                <a class="nav-link" href="{{route('dashbord.users.create')}}"><i class="icon-user-follow"></i>  {{__('words.add.users')}}    </a>
+                {{-- <a class="nav-link" href="#"><i class="icon-user-following"></i> {{__('words.login.user')}}  </a> --}}
             </li>
 
             <li class="nav-title">

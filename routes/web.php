@@ -31,11 +31,11 @@ Route::group(['prefix' => 'dashbord', 'as' => 'dashbord.', 'middleware' => ['aut
     })->name('settings');
 
 
-    Route::get('/users', function () {
-        return view('dashbord.users');
-    })->name('users');
-
     Route::post('/settings/update/{setting}',[SettingController::class, 'update'])->name('settings.update');
+    Route::get('/users/all',[UserController::class, 'getUsersDatatable'])->name('users.all');
+    Route::post('/users/delete',[UserController::class, 'delete'])->name('users.delete');
+
+
 
     Route::resources([
         'users' => UserController::class,

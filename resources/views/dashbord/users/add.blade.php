@@ -22,11 +22,11 @@
     <div class="container-fluid">
 
         <div class="animated fadeIn">
-            <form action="" method="post">
+            <form action="{{route('dashbord.users.store')}}" method="post">
                 @csrf
                 @method('POST')
                 <div class="row">
-                    {{-- @if ($errors->any())
+                    @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -34,7 +34,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif --}}
+                    @endif
                     <div class="card">
                         <div class="card-header">
                             <strong>{{ __('words.users') }}</strong>
@@ -57,12 +57,12 @@
                             <div class="form-group col-md-12">
                                 <label>{{ __('words.status') }}</label>
                                 <select name="status" id="" class="form-control">
-                                  
+
                                     <option value="admin">Admin</option>
                                     <option value="writer" >Writer</option>
                                     <option value="">غير مفعل </option>
                                 </select>
-                               
+
                             </div>
                         </div>
 
@@ -78,7 +78,7 @@
                         <div class="card-footer">
                             <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>
                                 Submit</button>
-                      
+
                         </div>
 
 

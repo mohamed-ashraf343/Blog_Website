@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th>{{ __('words.username') }}</th>
-                                <th>{{ __('words.Date registered') }}</th>
+                                <th>{{ __('words.email') }}</th>
                                 <th>{{ __('words.Role') }}</th>
                                 <th>{{ __('words.Status') }}</th>
                                 <th>{{ __('words.Action') }}</th>
@@ -47,7 +47,7 @@
     <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
-            <form action="" method="POST">
+            <form action="{{route('dashbord.users.delete')}}" method="POST">
                 <div class="modal-content">
 
                     <div class="modal-body">
@@ -80,7 +80,7 @@
             var table = $('#table_id').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "",
+                ajax: "{{route('dashbord.users.all')}}",
                 columns: [{
                         data: 'id',
                         name: 'id'
@@ -93,10 +93,12 @@
                         data: 'email',
                         name: 'email'
                     },
+
                     {
                         data: 'status',
                         name: 'status',
-                    },
+                    }
+                    ,
                     {
                         data: 'action',
                         name: 'action',
