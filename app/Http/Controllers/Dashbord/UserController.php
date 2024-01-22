@@ -16,6 +16,7 @@ class UserController extends Controller
     public function index()
     {
         return view('dashbord.users.index');
+
     }
 
     /**
@@ -38,8 +39,8 @@ class UserController extends Controller
             // ->addColumn('user', function($row){
             //     return $row->user->shown_name;
             // })
-            ->addColumn('status', function($row){
-                return $row->status == null ? __('words.NoAction') : $row->status;
+            ->addColumn('status', function ($row) {
+                return $row->status == null ? __('words.not activated') : $row->status;
             })
             // ->addColumn('url', function($row){
             //     return '<a href="' . Route('news.post', [$row->id, $row->slug]) . '" target="_blanck"> الذهاب للمقالة</a>';
@@ -50,6 +51,8 @@ class UserController extends Controller
 
             ->rawColumns(['action', 'status'])
             ->make(true);
+
+
 
 
 
@@ -66,15 +69,12 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required',
         ];
-
         $validatedData = $request->validate($data);
         User::create([
-            'name'=>$request->name,
-            'status'=>$request->status,
-            'email'=>$request->email,
-            'password'=>bcrypt($request->password),
-
-
+            'name' => $request->name,
+            'status' => $request->status,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
         ]);
         return redirect()->route('dashbord.users.index');
 
@@ -101,8 +101,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, User $user)
     {
+        // dd($request->all());
         $user->update($request->all());
         return redirect()->route('dashbord.users.index');
 

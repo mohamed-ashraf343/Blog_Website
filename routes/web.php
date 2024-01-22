@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashbord\CategoryControllerr;
 use App\Http\Controllers\Dashbord\SettingController;
 use App\Http\Controllers\Dashbord\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -32,18 +33,20 @@ Route::group(['prefix' => 'dashbord', 'as' => 'dashbord.', 'middleware' => ['aut
 
 
     Route::post('/settings/update/{setting}',[SettingController::class, 'update'])->name('settings.update');
+
     Route::get('/users/all',[UserController::class, 'getUsersDatatable'])->name('users.all');
     Route::post('/users/delete',[UserController::class, 'delete'])->name('users.delete');
 
 
+    Route::get('/category/all',[CategoryControllerr::class, 'getUsersDatatable'])->name('category.all');
+    Route::post('/category/delete',[CategoryControllerr::class, 'delete'])->name('category.delete');
 
     Route::resources([
         'users' => UserController::class,
+        'category' => CategoryControllerr::class,
+
     ]);
 });
-
-
-
 
 Auth::routes();
 

@@ -96,7 +96,7 @@
 
                     {
                         data: 'status',
-                        name: 'status',
+                        name: 'status'
                     }
                     ,
                     {

@@ -14,6 +14,17 @@
                 {{-- <a class="nav-link" href="#"><i class="icon-user-following"></i> {{__('words.login.user')}}  </a> --}}
             </li>
 
+
+            <li class="nav-title">
+                {{__('words.categories')}}
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{{route('dashbord.category.create')}}"><i class="icon-user-follow"></i>  {{__('words.add.categories')}}    </a>
+                <a class="nav-link" href="{{route('dashbord.category.index')}}"><i class="icon-people"></i> {{__('words.item.categories')}}   </a>
+
+                {{-- <a class="nav-link" href="#"><i class="icon-user-following"></i> {{__('words.login.user')}}  </a> --}}
+            </li>
+
             <li class="nav-title">
                 {{__('words.mangement.files')}}
             </li>

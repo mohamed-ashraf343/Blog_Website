@@ -11,7 +11,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class Category extends Model implements  TranslatableContract
 {
-    use Translatable , HasEagerLimit , HasFactory , SoftDeletes;
+    use Translatable ,  HasFactory , SoftDeletes;
 
 
     public $translatedAttributes = ['title', 'content'];
@@ -21,15 +21,15 @@ class Category extends Model implements  TranslatableContract
     {
         return $this->belongsTo(Category::class,'parent');
     }
-    
+
     public function children()
     {
         return $this->hasMany(Category::class,'parent');
     }
 
-    public function posts()
-    {
-       return $this->hasMany(Post::class);
-    }
+    // public function posts()
+    // {
+    //    return $this->hasMany(Post::class);
+    // }
 
 }
