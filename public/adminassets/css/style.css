@@ -59,8 +59,14 @@ strong {
   font-weight: bolder; }
 
 dfn {
-  font-style: italic; }
-
+  font-style: italic;
+ }
+.ck-content .table table td, .ck-content .table table th {
+    text-align: right !important;
+  }
+.ck.ck-editor {
+  direction: rtl !important;
+}
 h1 {
   font-size: 2em;
   margin: 0.67em 0; }

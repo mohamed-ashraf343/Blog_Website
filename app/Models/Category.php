@@ -27,9 +27,9 @@ class Category extends Model implements  TranslatableContract
         return $this->hasMany(Category::class,'parent');
     }
 
-    // public function posts()
-    // {
-    //    return $this->hasMany(Post::class);
-    // }
+    public function posts()
+    {
+       return $this->hasMany(Post::class);
+    }
 
 }

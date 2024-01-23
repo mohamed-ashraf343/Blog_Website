@@ -409,6 +409,19 @@
      {{-- data table  --}}
      <script src="{{asset('adminassets/js/libs/jquery.dataTables.min.js')}}"></script>
      <script src="{{asset('adminassets/js/libs/dataTables.bootstrap4.min.js')}}"></script>
+     <script src="{{asset('adminassets/js/ckeditor5.js')}}"></script>
+     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script> --}}
+     <script>
+        var allEditors = document.querySelectorAll('#editor');
+        for (var i = 0; i < allEditors.length; ++i) {
+            ClassicEditor.create(allEditors[i]);
+        }
+
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+
 
      {{-- <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
      <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap4.min.js"></script> --}}

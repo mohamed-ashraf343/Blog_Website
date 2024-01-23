@@ -32,9 +32,9 @@
                     <table class="table table-striped" id="table_id">
                         <thead>
                             <tr>
-                                <th>{{__('words.category')}}</th>
-                                <th>{{__('words.parent')}}</th>
-                                <th>{{__('words.Action')}}</th>
+                                <th>Category</th>
+                                <th>Parent</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,11 +49,12 @@
     </div>
 
 
+
     {{-- delete --}}
 <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
 <div class="modal-dialog">
-    <form action="{{ Route('dashbord.category.delete') }}" method="POST">
+    <form action="{{ Route('dashbord.posts.delete') }}" method="POST">
         <div class="modal-content">
 
             <div class="modal-body">
@@ -93,16 +94,16 @@ aria-hidden="true">
             var table = $('#table_id').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ Route('dashbord.category.all') }}",
+                ajax: "{{ Route('dashbord.posts.all') }}",
                 columns: [
-
+                 
                     {
                         data: 'title',
                         name: 'title'
                     },
                     {
-                        data: 'parent',
-                        name: 'parent'
+                        data: 'category_name',
+                        name: 'category_name'
                     },
                     {
                         data: 'action',

@@ -64,15 +64,17 @@ class CategoryControllerr extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request )
     {
 
        $category = Category::create($request->except('image','_token'));
+       $category->update($request->except('image', '_token'));
         if ($request->file('image')) {
             $file = $request->file('image');
-            $filename = Str::uuid().$file->getClientOriginalName();
+            $filename = Str::uuid() . $file->getClientOriginalName();
             $file->move(public_path('images'), $filename);
-            $path = '/images/' . $filename;
+            $path = 'images/' . $filename;
+
             $category->update(['image' => $path]);
         }
         return redirect()->route('dashbord.category.index');
