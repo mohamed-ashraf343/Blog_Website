@@ -12,14 +12,19 @@ use DataTables;
 
 class PostsController extends Controller
 {
-    use UploadImage;
+use UploadImage; protected $postmodel;
+
+    public function __construct(Post $post) {
+        $this->postmodel = $post;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return view('dashbord.posts.index');
-        
+
     }
 
     /**
@@ -32,16 +37,21 @@ class PostsController extends Controller
         return view('dashbord.posts.add' , compact('categories'));
         }
         abort(404);
-        
+
     }
     public function gePostssDatatable(){
         $data = Post::select('*')->with('category');
         return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                return $btn = '<a href="' . Route('dashbord.posts.edit', $row->id) . '" class="adit btn btn-success btn-sm" ><i class="fa fa-edit"></i></a><a
-                id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm" data-toggle="modal"
-                data-target="#deletemodal"><i class="fa fa-trash"></i></a>';
+
+                if(auth()->user()->can('update', $row)){
+                    return $btn = '
+                            <a href="' . Route('dashbord.posts.edit', $row->id) . '"  class="edit btn btn-success btn-sm" ><i class="fa fa-edit"></i></a>
+                            <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal" data-target="#deletemodal"><i class="fa fa-trash"></i></a>';
+                    }else{
+                        return;
+                    }
             })
 
             ->addColumn('category_name', function ($row) {
@@ -63,11 +73,13 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create' , $this->postmodel);
          $post = Post::create($request->except('image','_token'));
+         $post->update(['user_id' =>auth()->user()->id]);
             if($request->has('image')){
                 $post->update(['image'=>$this->upload($request->image)]);
             }
-      
+
          return redirect()->route('dashbord.posts.index');
     }
 
@@ -84,6 +96,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
         $categories = Category::all();
         return view ('dashbord.posts.edit', compact('post', 'categories'));
     }
@@ -93,11 +106,13 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $this->authorize('update', $post);
         $post->update($request->except('image','_token'));
+        $post->update(['user_id' =>auth()->user()->id]);
         if($request->has('image')){
             $post->update(['image'=>$this->upload($request->image)]);
         }
-  
+
      return redirect()->route('dashbord.posts.edit', $post);
     }
 
@@ -111,6 +126,7 @@ class PostsController extends Controller
 
     public function delete(Request $request){
 
+        $this->authorize('delete' , $this->postmodel->find($request->id));
         if(is_numeric($request->id)) {
             Post::where('id', $request->id)->delete();
 

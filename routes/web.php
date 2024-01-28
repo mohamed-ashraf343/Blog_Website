@@ -1,11 +1,14 @@
 <?php
 
-use App\Http\Controllers\Dashbord\CategoryControllerr;
-use App\Http\Controllers\Dashbord\PostsController;
-use App\Http\Controllers\Dashbord\SettingController;
-use App\Http\Controllers\Dashbord\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Website\PostController;
+use App\Http\Controllers\Dashbord\UserController;
+use App\Http\Controllers\Website\IndexController;
+use App\Http\Controllers\Dashbord\PostsController;
+use App\Http\Controllers\Dashbord\SettingController;
+use App\Http\Controllers\Website\CategoryController;
+use App\Http\Controllers\Dashbord\CategoryControllerr;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,21 +21,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashbord.index');
-});
+// website
 
+
+Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category');
+Route::get('/post/{post}', [PostController::class, 'show'])->name('post');
+
+
+
+
+//Dashbord
 
 Route::group(['prefix' => 'dashbord', 'as' => 'dashbord.', 'middleware' => ['auth', 'checklogin']], function () {
     Route::get('/', function () {
         return view('dashbord.layouts.layout');
     })->name('settings');
 
-    Route::get('/settings', function () {
-        return view('dashbord.settings');
-    })->name('settings');
-
-
+    Route::get('/settings', [SettingController::class , 'index'])->name('settings');
     Route::post('/settings/update/{setting}',[SettingController::class, 'update'])->name('settings.update');
 
     Route::get('/users/all',[UserController::class, 'getUsersDatatable'])->name('users.all');

@@ -50,7 +50,7 @@
                                 <input type="text" name="email" class="form-control"
                                     placeholder="{{ __('words.email') }}" value="{{ $user->email }}">
                             </div>
-                            {{-- @can('viewAny') --}}
+                            @can('viewAny')
                             <div class="form-group col-md-12">
                                 <label>{{ __('words.status') }}</label>
                                 <select name="status" id="" class="form-control">
@@ -69,7 +69,7 @@
                                 </select>
 
                             </div>
-                            {{-- @endcan --}}
+                            @endcan
                         </div>
 
 

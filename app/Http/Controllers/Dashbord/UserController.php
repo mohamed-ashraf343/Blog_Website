@@ -10,6 +10,11 @@ use Yajra\DataTables\Contracts\DataTable;
 
 class UserController extends Controller
 {
+    protected $user;
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -28,29 +33,30 @@ class UserController extends Controller
     }
 
     public function getUsersDatatable(){
-        $data = User::select('*');
-        return Datatables::of($data)
-            ->addIndexColumn()
-            ->addColumn('action', function($row){
-                return $btn = '<a href="' . Route('dashbord.users.edit', $row->id) . '" class="adit btn btn-success btn-sm" ><i class="fa fa-edit"></i></a><a
-                id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm" data-toggle="modal"
-                data-target="#deletemodal"><i class="fa fa-trash"></i></a>';
-            })
-            // ->addColumn('user', function($row){
-            //     return $row->user->shown_name;
-            // })
-            ->addColumn('status', function ($row) {
-                return $row->status == null ? __('words.not activated') : $row->status;
-            })
-            // ->addColumn('url', function($row){
-            //     return '<a href="' . Route('news.post', [$row->id, $row->slug]) . '" target="_blanck"> الذهاب للمقالة</a>';
-            // })
-            // ->addColumn('date', function($row){
-            //     return $row->created_at->toDateString();
-            // })
+        if (auth()->user()->can('viewAny', $this->user)) {
+            $data = User::select('*');
+            }else{
+                $data = User::where('id' , auth()->user()->id);
+            }
+            return   Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '';
+                    if (auth()->user()->can('update', $row)) {
+                        $btn .= '<a href="' . Route('dashbord.users.edit', $row->id) . '"  class="edit btn btn-success btn-sm" ><i class="fa fa-edit"></i></a>';
+                    }
+                    if (auth()->user()->can('delete', $row)) {
+                        $btn .= '
 
-            ->rawColumns(['action', 'status'])
-            ->make(true);
+                            <a id="deleteBtn" data-id="' . $row->id . '" class="edit btn btn-danger btn-sm"  data-toggle="modal" data-target="#deletemodal"><i class="fa fa-trash"></i></a>';
+                    }
+                    return $btn;
+                })
+                ->addColumn('status', function ($row) {
+                    return $row->status == null ? __('words.not activated') : __('words.' . $row->status);
+                })
+                ->rawColumns(['action', 'status'])
+                ->make(true);
 
 
 
@@ -63,6 +69,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        $this->authorize('update', $this->user);
+
         $data = [
             'name' => 'required|string',
             'status' => 'nullable|in:null,admin,writer',
@@ -93,9 +101,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // $this->authorize('update', $user);
-
-
+        $this->authorize('update', $user);
         return view('dashbord.users.edit', compact('user'));
     }
     /**
@@ -105,6 +111,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         // dd($request->all());
+        $this->authorize('update', $user);
         $user->update($request->all());
         return redirect()->route('dashbord.users.index');
 
@@ -118,11 +125,13 @@ class UserController extends Controller
         //
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
+        $this->authorize('delete', $this->user);
+        if (is_numeric($request->id)) {
+            User::where('id', $request->id)->delete();
+        }
 
-            if(is_numeric($request->id)) {
-                User::where('id', $request->id)->delete();
-            }
-            return redirect()->route('dashbord.users.index');
+        return redirect()->route('dashbord.users.index');
     }
 }
